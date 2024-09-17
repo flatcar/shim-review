@@ -58,11 +58,12 @@ The security contacts need to be verified before the shim can be accepted. For s
 An authorized reviewer will initiate contact verification by sending each security contact a PGP-encrypted email containing random words.
 You will be asked to post the contents of these mails in your `shim-review` issue to prove ownership of the email addresses and PGP keys.
 *******************************************************************************
+```
  Name: Sayan Chowdhury
  Position: Senior Software Engineer
  Email address: schowdhury@microsoft.com
  PGP key fingerprint: 0F16E841E517225C7D13AB3CB02399319CD05C8B
-
+```
 (Key should be signed by the other security contacts, pushed to a keyserver
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
 well known in the Linux community.)
@@ -70,11 +71,12 @@ well known in the Linux community.)
 *******************************************************************************
 ### Who is the secondary contact for security updates, etc.?
 *******************************************************************************
+ ```
  Name: Thilo Fromm
  Position: Princpal SWE Manager
  Email address: thilofromm@microsoft.com
  PGP key fingerprint: 77CCD95931393677344E83A481CE0776EF50B157
-
+```
 (Key should be signed by the other security contacts, pushed to a keyserver
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
 well known in the Linux community.)
@@ -279,14 +281,15 @@ If you are using a downstream implementation of GRUB2 (e.g. from Fedora or Debia
 
 Hint: run `objcopy --only-section .sbat -O binary YOUR_EFI_BINARY /dev/stdout` to get these entries. Paste them here. Preferably surround each listing with three backticks (\`\`\`), so they render well.
 *******************************************************************************
+```
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 shim,4,UEFI shim,shim,1,https://github.com/rhboot/shim
 shim.flatcar,1,Flatcar Container Linux,shim,15.8-r1,security@flatcar-linux.org
 
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
-grub,4,Free Software Foundation,grub,2.06,https://www.gnu.org/software/grub/
-grub.flatcar,1,Flatcar,grub2,2.06-r10,https://github.com/flatcar/flatcar
-
+grub,4,Free Software Foundation,grub,2.12,https://www.gnu.org/software/grub/
+grub.flatcar,1,Flatcar,grub2,2.12-r4,https://github.com/flatcar/flatcar
+```
 We do not provide with fwupd, fwupdate, and systemd-boot.
 
 *******************************************************************************
