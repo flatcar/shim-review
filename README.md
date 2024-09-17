@@ -340,7 +340,8 @@ No
 *******************************************************************************
 ### What kernel are you using? Which patches and configuration does it include to enforce Secure Boot?
 *******************************************************************************
-[your text here]
+Our Kernel is based on 6.6 LTS kernel. We have GH actions, which regularly monitors for new maintenance releases, and the patches are applied soon as soon as the our CI is green.
+kernel 6.6.x ebuild dir https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-kernel/coreos-kernel/
 
 *******************************************************************************
 ### What contributions have you made to help us review the applications of other applicants?
@@ -350,9 +351,9 @@ A reasonable timeframe of waiting for a review can reach 2-3 months. Helping us 
 
 For newcomers, the applications labeled as [*easy to review*](https://github.com/rhboot/shim-review/issues?q=is%3Aopen+is%3Aissue+label%3A%22easy+to+review%22) are recommended to start the contribution process.
 *******************************************************************************
-[your text here]
+No, we haven't done any contributions yet but we do plan to contribute in the future before our next shim-review.
 
 *******************************************************************************
 ### Add any additional information you think we may need to validate this shim signing application.
 *******************************************************************************
-[your text here]
+None
