@@ -178,14 +178,13 @@ Yes, vanilla GRUB 2.12 is clean as of 2024/09/13.
 *******************************************************************************
 Yes.
 https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/coreos/config/env/sys-boot/grub#L6
-The GRUB SBAT Generation is set to 4.
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader, and if these fixes have been applied, is the upstream global SBAT generation in your GRUB2 binary set to 4?
 Skip this, if you're not using GRUB2, otherwise do you have an entry in your GRUB2 binary similar to:
 `grub,4,Free Software Foundation,grub,GRUB_UPSTREAM_VERSION,https://www.gnu.org/software/grub/`?
 *******************************************************************************
-This is our first application, and We don't have a signed shim from Microsoft yet.
+The GRUB SBAT Generation is set to 4.
 
 *******************************************************************************
 ### Were old shims hashes provided to Microsoft for verification and to be added to future DBX updates?
