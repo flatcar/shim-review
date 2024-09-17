@@ -109,8 +109,7 @@ Hint: If you attach all the patches and modifications that are being used to you
 
 You can also point to your custom git servers, where the code is hosted.
 *******************************************************************************
-The repo is here: https://github.com/flatcar/scripts/
-The shim ebuild can be found here: https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-boot/shim/shim-15.8-r1.ebuild
+The repo is [here](https://github.com/flatcar/scripts/). The shim ebuild can be found [here](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-boot/shim/shim-15.8-r1.ebuild).
 
 We carry a patch as because the bundled gnu-efi build is implemented in a buggy way that can break when built in parallel. We've hit this in the nightly sdk build. The patch included fixes this. We have also submitted a PR upstream [rhboot/shim#643](https://github.com/rhboot/shim/pull/643).
 
@@ -118,7 +117,7 @@ We carry a patch as because the bundled gnu-efi build is implemented in a buggy 
 ### What patches are being applied and why:
 Mention all the external patches and build process modifications, which are used during your building process, that make your shim binary be the exact one that you posted as part of this application.
 *******************************************************************************
- We carry a patch as because the bundled gnu-efi build is implemented in a buggy way that can break when built in parallel. We've hit this in the nightly sdk build. The patch included fixes this. We have also submitted a PR upstream [rhboot/shim#643](https://github.com/rhboot/shim/pull/643).
+We carry a patch as because the bundled gnu-efi build is implemented in a buggy way that can break when built in parallel. We've hit this in the nightly sdk build. The patch included fixes this. We have also submitted a PR upstream [rhboot/shim#643](https://github.com/rhboot/shim/pull/643).
 
 *******************************************************************************
 ### Do you have the NX bit set in your shim? If so, is your entire boot stack NX-compatible and what testing have you done to ensure such compatibility?
@@ -131,7 +130,7 @@ No, our boot stack is not NX bit compatible.
 ### What exact implementation of Secure Boot in GRUB2 do you have? (Either Upstream GRUB2 shim_lock verifier or Downstream RHEL/Fedora/Debian/Canonical-like implementation)
 Skip this, if you're not using GRUB2.
 *******************************************************************************
-Yes, vanilla GRUB 2.12 is clean as of 2024/09/13.
+Upstream GRUB 2.12. Some patches are applied, but only to other parts of GRUB.
 
 *******************************************************************************
 ### Do you have fixes for all the following GRUB2 CVEs applied?
@@ -176,22 +175,22 @@ Yes, vanilla GRUB 2.12 is clean as of 2024/09/13.
   * CVE-2023-4693
   * CVE-2023-4692
 *******************************************************************************
-Yes.
-https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/coreos/config/env/sys-boot/grub#L6
+Yes, upstream GRUB 2.12 is clean as of 2024/09/13.
+
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader, and if these fixes have been applied, is the upstream global SBAT generation in your GRUB2 binary set to 4?
 Skip this, if you're not using GRUB2, otherwise do you have an entry in your GRUB2 binary similar to:
 `grub,4,Free Software Foundation,grub,GRUB_UPSTREAM_VERSION,https://www.gnu.org/software/grub/`?
 *******************************************************************************
-The GRUB SBAT Generation is set to 4.
+Yes, it has been set to 4 [here](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/coreos/config/env/sys-boot/grub#L6).
 
 *******************************************************************************
 ### Were old shims hashes provided to Microsoft for verification and to be added to future DBX updates?
 ### Does your new chain of trust disallow booting old GRUB2 builds affected by the CVEs?
 If you had no previous signed shim, say so here. Otherwise a simple _yes_ will do.
 *******************************************************************************
-This is our first application, and We don't have a signed shim from Microsoft yet.
+This is our first application, and we don't have a signed shim from Microsoft yet.
 
 *******************************************************************************
 ### If your boot chain of trust includes a Linux kernel:
@@ -297,11 +296,28 @@ Skip this, if you're not using GRUB2.
 
 Hint: this is about those modules that are in the binary itself, not the `.mod` files in your filesystem.
 *******************************************************************************
-The GRUB2 standard modules are built into our image are:
-normal, search, test, fat, part_gpt, gzio, search_part_label, terminal, configfile, memdisk, tar, echo, read, btrfs
+The GRUB2 standard modules built into our image are:
+
+* normal
+* search
+* test
+* fat
+* part_gpt
+* gzio
+* search_part_label
+* terminal
+* configfile
+* memdisk
+* tar
+* echo
+* read
+* btrfs
 
 The GRUB2 non-standard modules by Flatcar that are built into the image are:
-search_part_label, search_fs_uuid, gptprio
+
+* search_part_label
+* search_fs_uuid
+* gptprio
 
 *******************************************************************************
 ### If you are using systemd-boot on arm64 or riscv, is the fix for [unverified Devicetree Blob loading](https://github.com/systemd/systemd/security/advisories/GHSA-6m6p-rjcq-334c) included?
@@ -350,9 +366,9 @@ A reasonable timeframe of waiting for a review can reach 2-3 months. Helping us 
 
 For newcomers, the applications labeled as [*easy to review*](https://github.com/rhboot/shim-review/issues?q=is%3Aopen+is%3Aissue+label%3A%22easy+to+review%22) are recommended to start the contribution process.
 *******************************************************************************
-No, we haven't done any contributions yet but we do plan to contribute in the future before our next shim-review.
+No, we haven't done any contributions yet, but we do plan to contribute in the future before our next shim-review.
 
 *******************************************************************************
 ### Add any additional information you think we may need to validate this shim signing application.
 *******************************************************************************
-None
+None.
