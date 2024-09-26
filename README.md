@@ -183,7 +183,7 @@ Yes, upstream GRUB 2.12 is clean as of 2024/09/13.
 Skip this, if you're not using GRUB2, otherwise do you have an entry in your GRUB2 binary similar to:
 `grub,4,Free Software Foundation,grub,GRUB_UPSTREAM_VERSION,https://www.gnu.org/software/grub/`?
 *******************************************************************************
-Yes, it has been set to 4 [here](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/coreos/config/env/sys-boot/grub#L6).
+Yes, it has been set to 4 [here](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/coreos/config/env/sys-boot/grub#L16).
 
 *******************************************************************************
 ### Were old shims hashes provided to Microsoft for verification and to be added to future DBX updates?
@@ -286,7 +286,7 @@ shim.flatcar,1,Flatcar Container Linux,shim,15.8-r1,security@flatcar-linux.org
 
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 grub,4,Free Software Foundation,grub,2.12,https://www.gnu.org/software/grub/
-grub.flatcar,1,Flatcar,grub2,2.12-r4,https://github.com/flatcar/flatcar
+grub.flatcar,1,Flatcar,grub2,2.12-flatcar1,https://github.com/flatcar/flatcar
 ```
 We do not provide with fwupd, fwupdate, and systemd-boot.
 
@@ -327,7 +327,7 @@ We don't use systemd-boot.
 *******************************************************************************
 ### What is the origin and full version number of your bootloader (GRUB2 or systemd-boot or other)?
 *******************************************************************************
-[your text here]
+[Upstream GRUB 2.12](https://www.gnu.org/software/grub/) with [Gentoo patches](https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/portage-stable/sys-boot/grub/files) and [Flatcar patches](https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/coreos-overlay/coreos/user-patches/sys-boot/grub). Together, these form version `2.12-flatcar1`. This is shown in user-visible parts of GRUB.
 
 *******************************************************************************
 ### If your shim launches any other components apart from your bootloader, please provide further details on what is launched.
