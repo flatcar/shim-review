@@ -46,10 +46,7 @@ Boot support images, to aid users their secure supply chain.
 *******************************************************************************
 ### Why are you unable to reuse shim from another distro that is already signed?
 *******************************************************************************
-Flatcar Container Linux manages it's own build system and
-pipeline to maintain the images. For Secure Boot pipeline,
-we would be signing our built Grub, Linux - so we would be
-unable to use signed shim of another distribution.
+Flatcar Container Linux has its own builds of GRUB and the Linux kernel that we distribution maintainers need to be able to sign ourselves. We cannot rely on another distribution to sign these for us, and it would be unacceptable for users to have to manually enroll MOKs.
 
 *******************************************************************************
 ### Who is the primary contact for security updates, etc.?
