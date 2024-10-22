@@ -125,7 +125,7 @@ No, our boot stack is not NX bit compatible.
 ### What exact implementation of Secure Boot in GRUB2 do you have? (Either Upstream GRUB2 shim_lock verifier or Downstream RHEL/Fedora/Debian/Canonical-like implementation)
 Skip this, if you're not using GRUB2.
 *******************************************************************************
-Upstream GRUB 2.12. Some patches are applied, but only to other parts of GRUB.
+Fedora's GRUB 2.12. Two additional patches are applied, but these do not relate to Secure Boot.
 
 *******************************************************************************
 ### Do you have fixes for all the following GRUB2 CVEs applied?
@@ -281,7 +281,7 @@ shim.flatcar,1,Flatcar Container Linux,shim,15.8-r1,security@flatcar-linux.org
 
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 grub,4,Free Software Foundation,grub,2.12,https://www.gnu.org/software/grub/
-grub.flatcar,1,Flatcar,grub2,2.12-flatcar1,https://github.com/flatcar/flatcar
+grub.flatcar,1,Flatcar,grub2,2.12-flatcar3,https://github.com/flatcar/flatcar
 ```
 We do not provide with fwupd, fwupdate, and systemd-boot.
 
@@ -322,7 +322,9 @@ We don't use systemd-boot.
 *******************************************************************************
 ### What is the origin and full version number of your bootloader (GRUB2 or systemd-boot or other)?
 *******************************************************************************
-[Upstream GRUB 2.12](https://www.gnu.org/software/grub/) with [Gentoo patches](https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/portage-stable/sys-boot/grub/files) and [Flatcar patches](https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/coreos-overlay/coreos/user-patches/sys-boot/grub). Together, these form version `2.12-flatcar1`. This is shown in user-visible parts of GRUB.
+[Upstream GRUB 2.12](https://www.gnu.org/software/grub/) with [Fedora and Flatcar patches](https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/coreos-overlay/coreos/user-patches/sys-boot/grub). The Fedora patch is generated from a branch (currently fedora-42) of the [rhboot/grub2](https://github.com/rhboot/grub2) repo. Together, these form version `2.12-flatcar3`. This is shown in user-visible parts of GRUB.
+
+Flatcar needs Fedora's patches to fix Secure Boot on arm64 and the TPM Event Log on amd64. Flatcar's own patches add enhanced GPT functionality and the ability to read the verity hash from within the initrd. The Flatcar patches have been carried over from CoreOS, where they were originally written at least 8 years ago. See this [README](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/coreos/user-patches/sys-boot/grub/README.md) for more details.
 
 *******************************************************************************
 ### If your shim launches any other components apart from your bootloader, please provide further details on what is launched.
