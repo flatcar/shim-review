@@ -339,7 +339,6 @@ The GRUB2 standard modules built into our image are:
 * fat
 * part_gpt
 * gzio
-* search_part_label
 * terminal
 * configfile
 * memdisk
