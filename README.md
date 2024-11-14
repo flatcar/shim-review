@@ -122,6 +122,10 @@ A short guide on verifying public keys and signatures should be available in the
 Yes, These binaries created from the 15.8 release tar. Please refer to
 the ebuild for source: https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-boot/shim/shim-15.8-r1.ebuild#L9
 
+```
+a79f0a9b89f3681ab384865b1a46ab3f79d88b11b4ca59aa040ab03fffae80a9  /mnt/host/source/.cache/distfiles/shim-15.8.tar.bz2
+```
+
 *******************************************************************************
 ### URL for a repo that contains the exact code which was built to result in your binary:
 Hint: If you attach all the patches and modifications that are being used to your application, you can point to the URL of your application here (*`https://github.com/YOUR_ORGANIZATION/shim-review`*).
@@ -279,7 +283,10 @@ Skip this, if this is your first application for having shim signed.
 *******************************************************************************
 ### What is the SHA256 hash of your final shim binary?
 *******************************************************************************
-[your text here]
+```
+7d58c577de1a7ac080108764000b0da038ba73939826608a807b8a7e65017d7e  /build/amd64-usr/usr/lib/shim/shimx64.efi
+b44a113f1c7bfc32da9f07dfbb79e4b0951434fe5e315bb3a80834d89311b004  /build/arm64-usr/usr/lib/shim/shimaa64.efi
+```
 
 *******************************************************************************
 ### How do you manage and protect the keys used in your shim?
