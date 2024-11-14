@@ -120,7 +120,7 @@ Make sure that you've verified that your build process uses that file as a sourc
 A short guide on verifying public keys and signatures should be available in the [docs](./docs/) directory.
 *******************************************************************************
 Yes, These binaries created from the 15.8 release tar. Please refer to
-the ebuild for source: https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-boot/shim/shim-15.8-r1.ebuild#L9
+the ebuild for source: https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-boot/shim/shim-15.8-r2.ebuild#L9
 
 ```
 a79f0a9b89f3681ab384865b1a46ab3f79d88b11b4ca59aa040ab03fffae80a9  /mnt/host/source/.cache/distfiles/shim-15.8.tar.bz2
@@ -132,7 +132,7 @@ Hint: If you attach all the patches and modifications that are being used to you
 
 You can also point to your custom git servers, where the code is hosted.
 *******************************************************************************
-The repo is [here](https://github.com/flatcar/scripts/). The shim ebuild can be found [here](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-boot/shim/shim-15.8-r1.ebuild).
+The repo is [here](https://github.com/flatcar/scripts/). The shim ebuild can be found [here](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-boot/shim/shim-15.8-r2.ebuild).
 
 *******************************************************************************
 ### What patches are being applied and why:
