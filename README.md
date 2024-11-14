@@ -25,6 +25,28 @@ Here's the template:
 Flatcar Container Linux
 
 *******************************************************************************
+### What's the legal data that proves the organization's genuineness?
+The reviewers should be able to easily verify, that your organization is a legal entity, to prevent abuse.
+Provide the information, which can prove the genuineness with certainty.
+*******************************************************************************
+Company/tax register entries or equivalent:
+(a link to the organization entry in your jurisdiction's register will do)
+
+Cloud Native Computing Foundation
+
+The public details of both your organization and the issuer in the EV certificate used for signing .cab files at Microsoft Hardware Dev Center File Signing Services.
+(**not** the CA certificate embedded in your shim binary)
+
+Example:
+
+```
+Issuer: O=MyIssuer, Ltd., CN=MyIssuer EV Code Signing CA
+Subject: C=XX, O=MyCompany, Inc., CN=MyCompany, Inc.
+```
+
+N/A
+
+*******************************************************************************
 ### What product or service is this for?
 *******************************************************************************
 Flatcar Container Linux is a fully open source, minimal-footprint,
@@ -200,13 +222,21 @@ Yes, we include all mentioned upstream commits.
 *******************************************************************************
 ### Do you build your signed kernel with additional local patches? What do they do?
 *******************************************************************************
-[your text here]
+
+We carry seven kernel patches in Flatcar, which are explained below:
+
+- z0003-Revert-x86-boot-Remove-the-bugger-off-message.patch: Derive relative path for srctree from CURDIR. This enables relocating source and build trees to different roots,
+provided they stay reachable relative to one another.
+- z0002-revert-pahole-flags.patch: Add a patch to revert pahole flags that halts the system.
+- z0003-Revert-x86-boot-Remove-the-bugger-off-message.patch: Revert a kernel patch that we use the store the dm-verity hash
+- z0004-efi-Add-an-EFI_SECURE_BOOT-flag-to-indicate-secure-b.patch: Add an EFI_SECURE_BOOT flag that can be passed to efi_enabled() to find out whether secure boot is enabled.
+- z0005-efi-Lock-down-the-kernel-if-booted-in-secure-boot-mo.patch, z0006-mtd-phram-slram-Disable-when-the-kernel-is-locked-do.patch & z0007-arm64-add-kernel-config-option-to-lock-down-when-in-.patch: Lock down the kernel if booted in secure boot mode
 
 *******************************************************************************
 ### Do you use an ephemeral key for signing kernel modules?
 ### If not, please describe how you ensure that one kernel build does not load modules built for another kernel.
 *******************************************************************************
-[your text here]
+We use the kernel config `MODULE_SIG_KEY` to check the integrity of the kernel modules.
 
 *******************************************************************************
 ### If you use vendor_db functionality of providing multiple certificates and/or hashes please briefly describe your certificate setup.
@@ -255,7 +285,7 @@ Skip this, if this is your first application for having shim signed.
 ### How do you manage and protect the keys used in your shim?
 Describe the security strategy that is used for key protection. This can range from using hardware tokens like HSMs or Smartcards, air-gapped vaults, physical safes to other good practices.
 *******************************************************************************
-[your text here]
+We store our CA in HSM token, and the signing keys are stored in Azure Keyvault which are backed by FIPS 140-2 Level 2 backed HSM.
 
 *******************************************************************************
 ### Do you use EV certificates as embedded certificates in the shim?
