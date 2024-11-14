@@ -49,7 +49,7 @@ N/A
 *******************************************************************************
 ### What product or service is this for?
 *******************************************************************************
-Flatcar Container Linux is a fully open source, minimal-footprint,
+Flatcar Container Linux is a community driven, fully open source, minimal-footprint,
 secure by default and always up-to-date Linux distribution for
 running containers at scale.
 
@@ -231,16 +231,19 @@ We carry seven kernel patches in Flatcar, which are explained below:
 
 - z0003-Revert-x86-boot-Remove-the-bugger-off-message.patch: Derive relative path for srctree from CURDIR. This enables relocating source and build trees to different roots,
 provided they stay reachable relative to one another.
-- z0002-revert-pahole-flags.patch: Add a patch to revert pahole flags that halts the system.
-- z0003-Revert-x86-boot-Remove-the-bugger-off-message.patch: Revert a kernel patch that we use the store the dm-verity hash
-- z0004-efi-Add-an-EFI_SECURE_BOOT-flag-to-indicate-secure-b.patch: Add an EFI_SECURE_BOOT flag that can be passed to efi_enabled() to find out whether secure boot is enabled.
-- z0005-efi-Lock-down-the-kernel-if-booted-in-secure-boot-mo.patch, z0006-mtd-phram-slram-Disable-when-the-kernel-is-locked-do.patch & z0007-arm64-add-kernel-config-option-to-lock-down-when-in-.patch: Lock down the kernel if booted in secure boot mode
+- z0002-revert-pahole-flags.patch: Add a patch to revert pahole flags that make build non-reproducible.
+- z0003-Revert-x86-boot-Remove-the-bugger-off-message.patch: Revert a kernel patch removes the space that we use to store the dm-verity hash
+- Downstream Lockdown patches:
+   - z0004-efi-Add-an-EFI_SECURE_BOOT-flag-to-indicate-secure-b.patch
+   - z0005-efi-Lock-down-the-kernel-if-booted-in-secure-boot-mo.patch
+   - z0006-mtd-phram-slram-Disable-when-the-kernel-is-locked-do.patch
+   - z0007-arm64-add-kernel-config-option-to-lock-down-when-in-.patch
 
 *******************************************************************************
 ### Do you use an ephemeral key for signing kernel modules?
 ### If not, please describe how you ensure that one kernel build does not load modules built for another kernel.
 *******************************************************************************
-We use the kernel config `MODULE_SIG_KEY` to check the integrity of the kernel modules.
+Yes we use an ephemeral kernel module signing key, generated uniquely for each kernel build.
 
 *******************************************************************************
 ### If you use vendor_db functionality of providing multiple certificates and/or hashes please briefly describe your certificate setup.
@@ -292,7 +295,7 @@ b44a113f1c7bfc32da9f07dfbb79e4b0951434fe5e315bb3a80834d89311b004  /build/arm64-u
 ### How do you manage and protect the keys used in your shim?
 Describe the security strategy that is used for key protection. This can range from using hardware tokens like HSMs or Smartcards, air-gapped vaults, physical safes to other good practices.
 *******************************************************************************
-We store our CA in HSM token, and the signing keys are stored in Azure Keyvault which are backed by FIPS 140-2 Level 2 backed HSM.
+We store our CA offline in an HSM token, and the signing keys are stored in Azure Keyvault backed by a FIPS 140-2 Level 2 HSM.
 
 *******************************************************************************
 ### Do you use EV certificates as embedded certificates in the shim?
@@ -389,7 +392,7 @@ No
 *******************************************************************************
 ### What kernel are you using? Which patches and configuration does it include to enforce Secure Boot?
 *******************************************************************************
-Our Kernel is based on 6.6 LTS kernel. We have GH actions, which regularly monitors for new maintenance releases, and the patches are applied soon as soon as the our CI is green.
+Our Kernel is based on 6.6 LTS kernel. We have GH actions, which regularly monitors for new maintenance releases, and the patches are applied as soon as our CI is green.
 kernel 6.6.x ebuild dir https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-kernel/coreos-kernel/
 
 *******************************************************************************
