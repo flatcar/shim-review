@@ -138,7 +138,7 @@ The repo is [here](https://github.com/flatcar/scripts/). The shim ebuild can be 
 ### What patches are being applied and why:
 Mention all the external patches and build process modifications, which are used during your building process, that make your shim binary be the exact one that you posted as part of this application.
 *******************************************************************************
-We carry a patch because the bundled gnu-efi build is implemented in a buggy way that can break when built in parallel. We've hit this in the nightly sdk build. The patch included fixes this. We have also submitted a PR upstream [rhboot/shim#643](https://github.com/rhboot/shim/pull/643).
+We carry a [patch](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-boot/shim/files/0001-Fix-parallel-build-of-gnu-efi.patch) because the bundled gnu-efi build is implemented in a buggy way that can break when built in parallel. We've hit this in the nightly sdk build. The patch included fixes this. We have also submitted a PR upstream [rhboot/shim#643](https://github.com/rhboot/shim/pull/643).
 
 *******************************************************************************
 ### Do you have the NX bit set in your shim? If so, is your entire boot stack NX-compatible and what testing have you done to ensure such compatibility?
