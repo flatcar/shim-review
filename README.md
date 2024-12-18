@@ -33,6 +33,12 @@ Company/tax register entries or equivalent:
 (a link to the organization entry in your jurisdiction's register will do)
 
 Cloud Native Computing Foundation
+c/o The Linux Foundation
+548 Market St
+PMB 57274
+San Francisco, CA 94104-5401
+
+Cloud Native Computing Foundation is under The Linux Foundation with EIN 46-0503801
 
 The public details of both your organization and the issuer in the EV certificate used for signing .cab files at Microsoft Hardware Dev Center File Signing Services.
 (**not** the CA certificate embedded in your shim binary)
