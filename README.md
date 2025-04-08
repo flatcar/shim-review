@@ -33,22 +33,59 @@ Here's the template:
 *******************************************************************************
 ### What organization or people are asking to have this signed?
 *******************************************************************************
-[your text here]
+Flatcar Container Linux
+
+*******************************************************************************
+### What's the legal data that proves the organization's genuineness?
+The reviewers should be able to easily verify, that your organization is a legal entity, to prevent abuse.
+Provide the information, which can prove the genuineness with certainty.
+*******************************************************************************
+Company/tax register entries or equivalent:
+(a link to the organization entry in your jurisdiction's register will do)
+
+Cloud Native Computing Foundation
+c/o The Linux Foundation
+548 Market St
+PMB 57274
+San Francisco, CA 94104-5401
+
+Cloud Native Computing Foundation is under The Linux Foundation with EIN 46-0503801
+
+The public details of both your organization and the issuer in the EV certificate used for signing .cab files at Microsoft Hardware Dev Center File Signing Services.
+(**not** the CA certificate embedded in your shim binary)
+
+Example:
+
+```
+Issuer: O=MyIssuer, Ltd., CN=MyIssuer EV Code Signing CA
+Subject: C=XX, O=MyCompany, Inc., CN=MyCompany, Inc.
+```
+
+N/A
 
 *******************************************************************************
 ### What product or service is this for?
 *******************************************************************************
-[your text here]
+Flatcar Container Linux is a community driven, fully open source, minimal-footprint,
+secure by default and always up-to-date Linux distribution for
+running containers at scale.
 
 *******************************************************************************
 ### What's the justification that this really does need to be signed for the whole world to be able to boot it?
 *******************************************************************************
-[your text here]
+Flatcar Container Linux is a fully open source, minimal-footprint,
+secure by default and always up-to-date Linux distribution for
+running containers at scale. Flatcar Container Linux supports an
+array of cloud providers, including Microsoft Azure, Amazon Web
+Services, Google Cloud Platform, and others. Flatcar users heavily
+use Flatcar for their container workloads and deployments, and as
+security is one of pillars of the OS, we would like to add Secure
+Boot support images, to aid users their secure supply chain.
 
 *******************************************************************************
 ### Why are you unable to reuse shim from another distro that is already signed?
 *******************************************************************************
-[your text here]
+Flatcar Container Linux has its own builds of GRUB and the Linux kernel that we distribution maintainers need to be able to sign ourselves. We cannot rely on another distribution to sign these for us, and it would be unacceptable for users to have to manually enroll MOKs.
 
 *******************************************************************************
 ### Who is the primary contact for security updates, etc.?
@@ -57,11 +94,12 @@ The security contacts need to be verified before the shim can be accepted. For s
 An authorized reviewer will initiate contact verification by sending each security contact a PGP-encrypted email containing random words.
 You will be asked to post the contents of these mails in your `shim-review` issue to prove ownership of the email addresses and PGP keys.
 *******************************************************************************
-- Name:
-- Position:
-- Email address:
-- PGP key fingerprint:
-
+```
+ Name: Sayan Chowdhury
+ Position: Senior Software Engineer
+ Email address: schowdhury@microsoft.com
+ PGP key fingerprint: 0F16E841E517225C7D13AB3CB02399319CD05C8B
+```
 (Key should be signed by the other security contacts, pushed to a keyserver
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
 well known in the Linux community.)
@@ -69,11 +107,12 @@ well known in the Linux community.)
 *******************************************************************************
 ### Who is the secondary contact for security updates, etc.?
 *******************************************************************************
-- Name:
-- Position:
-- Email address:
-- PGP key fingerprint:
-
+ ```
+ Name: Thilo Fromm
+ Position: Princpal SWE Manager
+ Email address: thilofromm@microsoft.com
+ PGP key fingerprint: 77CCD95931393677344E83A481CE0776EF50B157
+```
 (Key should be signed by the other security contacts, pushed to a keyserver
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
 well known in the Linux community.)
@@ -97,7 +136,12 @@ Make sure that you've verified that your build process uses that file as a sourc
 
 A short guide on verifying public keys and signatures should be available in the [docs](./docs/) directory.
 *******************************************************************************
-[your text here]
+Yes, These binaries created from the 15.8 release tar. Please refer to
+the ebuild for source: https://github.com/flatcar/scripts/blob/alpha-4186.0.0/sdk_container/src/third_party/coreos-overlay/sys-boot/shim/shim-15.8-r2.ebuild#L9
+
+```
+a79f0a9b89f3681ab384865b1a46ab3f79d88b11b4ca59aa040ab03fffae80a9  /mnt/host/source/.cache/distfiles/shim-15.8.tar.bz2
+```
 
 *******************************************************************************
 ### URL for a repo that contains the exact code which was built to result in your binary:
@@ -105,26 +149,26 @@ Hint: If you attach all the patches and modifications that are being used to you
 
 You can also point to your custom git servers, where the code is hosted.
 *******************************************************************************
-[your url here]
+The repo is [here](https://github.com/flatcar/scripts/). The shim ebuild can be found [here](https://github.com/flatcar/scripts/blob/alpha-4186.0.0/sdk_container/src/third_party/coreos-overlay/sys-boot/shim/shim-15.8-r2.ebuild).
 
 *******************************************************************************
 ### What patches are being applied and why:
 Mention all the external patches and build process modifications, which are used during your building process, that make your shim binary be the exact one that you posted as part of this application.
 *******************************************************************************
-[your text here]
+We carry a [patch](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-boot/shim/files/0001-Fix-parallel-build-of-gnu-efi.patch) because the bundled gnu-efi build is implemented in a buggy way that can break when built in parallel. We've hit this in the nightly sdk build. The patch included fixes this. We have also submitted a PR upstream [rhboot/shim#643](https://github.com/rhboot/shim/pull/643).
 
 *******************************************************************************
 ### Do you have the NX bit set in your shim? If so, is your entire boot stack NX-compatible and what testing have you done to ensure such compatibility?
 
 See https://techcommunity.microsoft.com/t5/hardware-dev-center/nx-exception-for-shim-community/ba-p/3976522 for more details on the signing of shim without NX bit.
 *******************************************************************************
-[your text here]
+No, our boot stack is not NX bit compatible.
 
 *******************************************************************************
 ### What exact implementation of Secure Boot in GRUB2 do you have? (Either Upstream GRUB2 shim_lock verifier or Downstream RHEL/Fedora/Debian/Canonical-like implementation)
 Skip this, if you're not using GRUB2.
 *******************************************************************************
-[your text here]
+Fedora's GRUB 2.12. Two additional patches are applied, but these do not relate to Secure Boot.
 
 *******************************************************************************
 ### Do you have fixes for all the following GRUB2 CVEs applied?
@@ -169,48 +213,60 @@ Skip this, if you're not using GRUB2.
   * CVE-2023-4693
   * CVE-2023-4692
 *******************************************************************************
-[your text here]
+Yes, upstream GRUB 2.12 is clean as of 2024/09/13.
+
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader, and if these fixes have been applied, is the upstream global SBAT generation in your GRUB2 binary set to 4?
-Skip this, if you're not using GRUB2, otherwise do you have an entry in your GRUB2 binary similar to:  
+Skip this, if you're not using GRUB2, otherwise do you have an entry in your GRUB2 binary similar to:
 `grub,4,Free Software Foundation,grub,GRUB_UPSTREAM_VERSION,https://www.gnu.org/software/grub/`?
 *******************************************************************************
-[your text here]
+Yes, it has been set to 4 [here](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/coreos/config/env/sys-boot/grub#L16).
 
 *******************************************************************************
 ### Were old shims hashes provided to Microsoft for verification and to be added to future DBX updates?
 ### Does your new chain of trust disallow booting old GRUB2 builds affected by the CVEs?
 If you had no previous signed shim, say so here. Otherwise a simple _yes_ will do.
 *******************************************************************************
-[your text here]
+This is our first application, and we don't have a signed shim from Microsoft yet.
 
 *******************************************************************************
 ### If your boot chain of trust includes a Linux kernel:
 ### Is upstream commit [1957a85b0032a81e6482ca4aab883643b8dae06e "efi: Restrict efivar_ssdt_load when the kernel is locked down"](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1957a85b0032a81e6482ca4aab883643b8dae06e) applied?
 ### Is upstream commit [75b0cea7bf307f362057cc778efe89af4c615354 "ACPI: configfs: Disallow loading ACPI tables when locked down"](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=75b0cea7bf307f362057cc778efe89af4c615354) applied?
 ### Is upstream commit [eadb2f47a3ced5c64b23b90fd2a3463f63726066 "lockdown: also lock down previous kgdb use"](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=eadb2f47a3ced5c64b23b90fd2a3463f63726066) applied?
-Hint: upstream kernels should have all these applied, but if you ship your own heavily-modified older kernel version, that is being maintained separately from upstream, this may not be the case.  
+Hint: upstream kernels should have all these applied, but if you ship your own heavily-modified older kernel version, that is being maintained separately from upstream, this may not be the case.
 If you are shipping an older kernel, double-check your sources; maybe you do not have all the patches, but ship a configuration, that does not expose the issue(s).
 *******************************************************************************
-[your text here]
+Yes, we include all mentioned upstream commits.
 
 *******************************************************************************
 ### Do you build your signed kernel with additional local patches? What do they do?
 *******************************************************************************
-[your text here]
+
+We carry seven kernel patches in Flatcar, which are explained below:
+
+- z0003-Revert-x86-boot-Remove-the-bugger-off-message.patch: Derive relative path for srctree from CURDIR. This enables relocating source and build trees to different roots,
+provided they stay reachable relative to one another.
+- z0002-revert-pahole-flags.patch: Add a patch to revert pahole flags that make build non-reproducible.
+- z0003-Revert-x86-boot-Remove-the-bugger-off-message.patch: Revert a kernel patch removes the space that we use to store the dm-verity hash
+- Downstream Lockdown patches:
+   - z0004-efi-Add-an-EFI_SECURE_BOOT-flag-to-indicate-secure-b.patch
+   - z0005-efi-Lock-down-the-kernel-if-booted-in-secure-boot-mo.patch
+   - z0006-mtd-phram-slram-Disable-when-the-kernel-is-locked-do.patch
+   - z0007-arm64-add-kernel-config-option-to-lock-down-when-in-.patch
 
 *******************************************************************************
 ### Do you use an ephemeral key for signing kernel modules?
 ### If not, please describe how you ensure that one kernel build does not load modules built for another kernel.
 *******************************************************************************
-[your text here]
+Yes we use an ephemeral kernel module signing key, generated uniquely for each kernel build.
 
 *******************************************************************************
 ### If you use vendor_db functionality of providing multiple certificates and/or hashes please briefly describe your certificate setup.
 ### If there are allow-listed hashes please provide exact binaries for which hashes are created via file sharing service, available in public with anonymous access for verification.
 *******************************************************************************
-[your text here]
+We don't use the vendor_db functionality, nor do we include any allow-listed hashes.
 
 *******************************************************************************
 ### If you are re-using the CA certificate from your last shim binary, you will need to add the hashes of the previous GRUB2 binaries exposed to the CVEs mentioned earlier to vendor_dbx in shim. Please describe your strategy.
@@ -218,7 +274,7 @@ This ensures that your new shim+GRUB2 can no longer chainload those older GRUB2 
 
 If this is your first application or you're using a new CA certificate, please say so here.
 *******************************************************************************
-[your text here]
+This is our first submission for shim signing.
 
 *******************************************************************************
 ### Is the Dockerfile in your repository the recipe for reproducing the building of your shim binary?
@@ -228,13 +284,13 @@ Hint: Prefer using *frozen* packages for your toolchain, since an update to GCC,
 
 If your shim binaries can't be reproduced using the provided Dockerfile, please explain why that's the case, what the differences would be and what build environment (OS and toolchain) is being used to reproduce this build? In this case please write a detailed guide, how to setup this build environment from scratch.
 *******************************************************************************
-[your text here]
+Please refer to the [Dockerfile](https://github.com/flatcar/shim-review/blob/main/Dockerfile)
 
 *******************************************************************************
 ### Which files in this repo are the logs for your build?
 This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
 *******************************************************************************
-[your text here]
+Please refer to the [build.log](https://github.com/flatcar/shim-review/blob/main/build.log)
 
 *******************************************************************************
 ### What changes were made in the distro's secure boot chain since your SHIM was last signed?
@@ -242,24 +298,27 @@ For example, signing new kernel's variants, UKI, systemd-boot, new certs, new CA
 
 Skip this, if this is your first application for having shim signed.
 *******************************************************************************
-[your text here]
+ This is our first submission for shim signing.
 
 *******************************************************************************
 ### What is the SHA256 hash of your final shim binary?
 *******************************************************************************
-[your text here]
+```
+7d58c577de1a7ac080108764000b0da038ba73939826608a807b8a7e65017d7e  /build/amd64-usr/usr/lib/shim/shimx64.efi
+b44a113f1c7bfc32da9f07dfbb79e4b0951434fe5e315bb3a80834d89311b004  /build/arm64-usr/usr/lib/shim/shimaa64.efi
+```
 
 *******************************************************************************
 ### How do you manage and protect the keys used in your shim?
 Describe the security strategy that is used for key protection. This can range from using hardware tokens like HSMs or Smartcards, air-gapped vaults, physical safes to other good practices.
 *******************************************************************************
-[your text here]
+We store our CA offline in an HSM token, and the signing keys are stored in Azure Keyvault backed by a FIPS 140-2 Level 2 HSM.
 
 *******************************************************************************
 ### Do you use EV certificates as embedded certificates in the shim?
 A _yes_ or _no_ will do. There's no penalty for the latter.
 *******************************************************************************
-[your text here]
+No
 
 *******************************************************************************
 ### Do you add a vendor-specific SBAT entry to the SBAT section in each binary that supports SBAT metadata ( GRUB2, fwupd, fwupdate, systemd-boot, systemd-stub, shim + all child shim binaries )?
@@ -272,7 +331,16 @@ If you are using a downstream implementation of GRUB2 (e.g. from Fedora or Debia
 
 Hint: run `objcopy --only-section .sbat -O binary YOUR_EFI_BINARY /dev/stdout` to get these entries. Paste them here. Preferably surround each listing with three backticks (\`\`\`), so they render well.
 *******************************************************************************
-[your text here]
+```
+sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+shim,4,UEFI shim,shim,1,https://github.com/rhboot/shim
+shim.flatcar,1,Flatcar Container Linux,shim,15.8-r1,security@flatcar-linux.org
+
+sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+grub,4,Free Software Foundation,grub,2.12,https://www.gnu.org/software/grub/
+grub.flatcar,1,Flatcar,grub2,2.12-flatcar3,https://github.com/flatcar/flatcar
+```
+We do not provide with fwupd, fwupdate, and systemd-boot.
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader, which modules are built into your signed GRUB2 image?
@@ -280,57 +348,80 @@ Skip this, if you're not using GRUB2.
 
 Hint: this is about those modules that are in the binary itself, not the `.mod` files in your filesystem.
 *******************************************************************************
-[your text here]
+The GRUB2 standard modules built into our image are:
+
+* normal
+* search
+* test
+* fat
+* part_gpt
+* gzio
+* terminal
+* configfile
+* memdisk
+* tar
+* echo
+* read
+* btrfs
+
+The GRUB2 non-standard modules by Flatcar that are built into the image are:
+
+* search_part_label
+* search_fs_uuid
+* gptprio
 
 *******************************************************************************
 ### If you are using systemd-boot on arm64 or riscv, is the fix for [unverified Devicetree Blob loading](https://github.com/systemd/systemd/security/advisories/GHSA-6m6p-rjcq-334c) included?
 *******************************************************************************
-[your text here]
+We don't use systemd-boot.
 
 *******************************************************************************
 ### What is the origin and full version number of your bootloader (GRUB2 or systemd-boot or other)?
 *******************************************************************************
-[your text here]
+[Upstream GRUB 2.12](https://www.gnu.org/software/grub/) with [Fedora and Flatcar patches](https://github.com/flatcar/scripts/tree/main/sdk_container/src/third_party/coreos-overlay/coreos/user-patches/sys-boot/grub). The Fedora patch is generated from a branch (currently fedora-42) of the [rhboot/grub2](https://github.com/rhboot/grub2) repo. Together, these form version `2.12-flatcar3`. This is shown in user-visible parts of GRUB.
+
+Flatcar needs Fedora's patches to fix Secure Boot on arm64 and the TPM Event Log on amd64. Flatcar's own patches add enhanced GPT functionality and the ability to extract a verity hash out of the signed portion of the kernel binary. The Flatcar patches have been carried over from CoreOS, where they were originally written at least 8 years ago. See this [README](https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/coreos/user-patches/sys-boot/grub/README.md) for more details.
 
 *******************************************************************************
 ### If your shim launches any other components apart from your bootloader, please provide further details on what is launched.
 Hint: The most common case here will be a firmware updater like fwupd.
 *******************************************************************************
-[your text here]
+Shim loads no components other than GRUB2
 
 *******************************************************************************
 ### If your GRUB2 or systemd-boot launches any other binaries that are not the Linux kernel in SecureBoot mode, please provide further details on what is launched and how it enforces Secureboot lockdown.
 Skip this, if you're not using GRUB2 or systemd-boot.
 *******************************************************************************
-[your text here]
+N/A
 
 *******************************************************************************
 ### How do the launched components prevent execution of unauthenticated code?
 Summarize in one or two sentences, how your secure bootchain works on higher level.
 *******************************************************************************
-[your text here]
+N/A
 
 *******************************************************************************
 ### Does your shim load any loaders that support loading unsigned kernels (e.g. certain GRUB2 configurations)?
 *******************************************************************************
-[your text here]
+No
 
 *******************************************************************************
 ### What kernel are you using? Which patches and configuration does it include to enforce Secure Boot?
 *******************************************************************************
-[your text here]
+Our Kernel is based on 6.6 LTS kernel. We have GH actions, which regularly monitors for new maintenance releases, and the patches are applied as soon as our CI is green.
+kernel 6.6.x ebuild dir https://github.com/flatcar/scripts/blob/main/sdk_container/src/third_party/coreos-overlay/sys-kernel/coreos-kernel/
 
 *******************************************************************************
 ### What contributions have you made to help us review the applications of other applicants?
-The reviewing process is meant to be a peer-review effort and the best way to have your application reviewed faster is to help with reviewing others. We are in most cases volunteers working on this venue in our free time, rather than being employed and paid to review the applications during our business hours. 
+The reviewing process is meant to be a peer-review effort and the best way to have your application reviewed faster is to help with reviewing others. We are in most cases volunteers working on this venue in our free time, rather than being employed and paid to review the applications during our business hours.
 
 A reasonable timeframe of waiting for a review can reach 2-3 months. Helping us is the best way to shorten this period. The more help we get, the faster and the smoother things will go.
 
 For newcomers, the applications labeled as [*easy to review*](https://github.com/rhboot/shim-review/issues?q=is%3Aopen+is%3Aissue+label%3A%22easy+to+review%22) are recommended to start the contribution process.
 *******************************************************************************
-[your text here]
+No, we haven't done any contributions yet, but we do plan to contribute in the future before our next shim-review.
 
 *******************************************************************************
 ### Add any additional information you think we may need to validate this shim signing application.
 *******************************************************************************
-[your text here]
+None.
