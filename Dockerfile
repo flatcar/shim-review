@@ -18,17 +18,17 @@ RUN ln -s /mnt/host/source/src/scripts/sdk_container/src/third_party /mnt/host/s
 ENV SOURCE_DATE_EPOCH=1
 ENV USE=official
 ENV SHIM_SIGNING_CERTIFICATE=/mnt/host/source/src/scripts/flatcar-dev-ca.der
-RUN wget -O /mnt/host/source/.cache/distfiles/shim-15.8.tar.bz2 https://github.com/rhboot/shim/releases/download/15.8/shim-15.8.tar.bz2
+RUN wget -O /mnt/host/source/.cache/distfiles/shim-16.1.tar.bz2 https://github.com/rhboot/shim/releases/download/16.1/shim-16.1.tar.bz2
 RUN emerge-amd64-usr --nodeps shim
 RUN emerge-arm64-usr --nodeps shim
 
 WORKDIR /shim-review
-RUN sha256sum /mnt/host/source/.cache/distfiles/shim-15.8.tar.bz2 | tee shim-tar-bz2.sha256
-RUN sha256sum /build/amd64-usr/usr/lib/shim/shimx64.efi | tee shimx64-15.8.sha256
-RUN sha256sum /build/arm64-usr/usr/lib/shim/shimaa64.efi | tee shimaa64-15.8.sha256
-RUN cp /build/amd64-usr/usr/lib/shim/shimx64.efi shimx64-15.8.efi
-RUN cp /build/arm64-usr/usr/lib/shim/shimaa64.efi shimaa64-15.8.efi
-RUN objcopy --only-section .sbat -O binary shimx64-15.8.efi /dev/stdout | tee sbat-shimx64-15.8.csv
-RUN aarch64-cros-linux-gnu-objcopy --only-section .sbat -O binary /shim-review/shimaa64-15.8.efi /dev/stdout | tee sbat-shimaa64-15.8.csv
-RUN hexdump -Cv shimx64-15.8.efi > shimx64-build
-RUN hexdump -Cv shimaa64-15.8.efi > shima64-build
+RUN sha256sum /mnt/host/source/.cache/distfiles/shim-16.1.tar.bz2 | tee shim-tar-bz2.sha256
+RUN sha256sum /build/amd64-usr/usr/lib/shim/shimx64.efi | tee shimx64-16.1.sha256
+RUN sha256sum /build/arm64-usr/usr/lib/shim/shimaa64.efi | tee shimaa64-16.1.sha256
+RUN cp /build/amd64-usr/usr/lib/shim/shimx64.efi shimx64-16.1.efi
+RUN cp /build/arm64-usr/usr/lib/shim/shimaa64.efi shimaa64-16.1.efi
+RUN objcopy --only-section .sbat -O binary shimx64-16.1.efi /dev/stdout | tee sbat-shimx64-16.1.csv
+RUN aarch64-cros-linux-gnu-objcopy --only-section .sbat -O binary /shim-review/shimaa64-16.1.efi /dev/stdout | tee sbat-shimaa64-16.1.csv
+RUN hexdump -Cv shimx64-16.1.efi > shimx64-build
+RUN hexdump -Cv shimaa64-16.1.efi > shima64-build
